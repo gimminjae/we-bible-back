@@ -71,32 +71,15 @@ const fs = require("fs");
 const path = require("path");
 const bibleService = {
   async get(book, chapter, locale) {
-    // const jsonFilePath = `./bible/${
-    //   bibleInfos[Number(book)].bookName
-    // }/${chapter}.json`;
     const jsonFilePath = path.join(
-      "../..",
-      "public",
-      "data",
+      "util",
       "bible",
       bibleInfos[Number(book)].bookName,
       `${chapter}.json`
     );
 
-    const result = await fs.readFile(jsonFilePath, "utf8", (err, data) => {
-      if (err) {
-        console.error("Error reading JSON file:", err);
-        return;
-      }
-
-      try {
-        const jsonData = JSON.parse(data);
-        res.json(jsonData);
-      } catch (parseErr) {
-        console.error("Error parsing JSON file:", parseErr);
-      }
-    });
-    return result;
+    const result = fs.readFileSync(jsonFilePath, "utf8")
+    return JSON.parse(result)
   },
 };
 
