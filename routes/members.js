@@ -8,7 +8,7 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/", async function (req, res, next) {
-  const result = await memberRepository.putData(req.body);
+  const result = await memberService.createMember(req.body);
   res.send(result);
 });
 
