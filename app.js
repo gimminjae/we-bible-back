@@ -9,7 +9,7 @@ var membersRouter = require('./routes/members');
 var bibleRouter = require('./routes/bible');
 
 var app = express();
-
+require('dotenv').config()
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

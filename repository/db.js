@@ -1,6 +1,3 @@
-// import {DynamoDBClient} from "@aws-sdk/client-dynamodb";
-// import {PutCommand, GetCommand, DynamoDBDocumentClient} from "@aws-sdk/lib-dynamodb";
-
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { DynamoDBDocumentClient, PutCommand } = require("@aws-sdk/lib-dynamodb");
 
@@ -13,31 +10,17 @@ const client = new DynamoDBClient({
 });
 const docClient = DynamoDBDocumentClient.from(client);
 
-const tableName = "member"
-
-const memberRepository = {
-  async putData(member) {
-    console.log("member: ", member)
+const db = {
+  async putData(tableName, data) {
     const command = new PutCommand({
       TableName: tableName,
-      Item: {
-        createdAt: member.createdAt,
-        updatedAt: member.updatedAt,
-        loginType: member.loginType,
-        useYn: member.useYn,
-        auth: member.auth,
-        username: member.username,
-        password: member.password,
-        nickname: member.nickname,
-        name: member.name,
-        email: member.email,
-      },
+      Item: data,
     });
 
     const response = await docClient.send(command);
     return response;
   },
-  async getDatas(condition) {
+  async getDatas(tableName, condition) {
     const command = new GetCommand({
       TableName: tableName,
       Key: condition,
@@ -46,12 +29,10 @@ const memberRepository = {
     const response = await docClient.send(command);
     return response;
   },
-  async getDataById(memId) {
+  async getDataById(tableName, idObject) {
     const command = new GetCommand({
       TableName: tableName,
-      Key: {
-        memId: memId
-      },
+      Key: idObject,
     });
 
     const response = await docClient.send(command);
@@ -59,4 +40,4 @@ const memberRepository = {
   }
 }
 
-module.exports = memberRepository
+module.exports = db

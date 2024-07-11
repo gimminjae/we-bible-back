@@ -1,30 +1,13 @@
-interface Member {
-    createdAt: Date
-    updatedAt: Date
-    loginType: string
-    useYn: boolean
-    auth: string
-    username: string
-    password: string
-    nickname: string
-    name: string
-    email: string
-    // createdAt: member.createdAt,
-    //     updatedAt: member.updatedAt,
-    //     loginType: member.loginType,
-    //     useYn: member.useYn,
-    //     auth: member.auth,
-    //     username: member.username,
-    //     password: member.password,
-    //     nickname: member.nickname,
-    //     name: member.name,
-    //     email: member.email,
-}
-const memberRepository = require("../repository/member");
+import memberRepository from "../repository/memberRepository"
+
 const memberService = {
     createMember(member: Member) {
-        memberRepository.putData(member)
+        memberRepository.save(member)
+    },
+    getById(id: number) {
+        return memberRepository.findById(id)
     }
 }
 
-module.exports = memberService
+// module.exports = { memberService }
+export default memberService

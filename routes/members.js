@@ -1,5 +1,6 @@
 var express = require("express");
-const memberRepository = require("../repository/member");
+// const memberService = require("../service/memberService")
+import memberService from "../service/memberService"
 var router = express.Router();
 
 /* GET users listing. */
