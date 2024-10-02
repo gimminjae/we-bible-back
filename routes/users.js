@@ -1,28 +1,22 @@
 var express = require("express")
 var router = express.Router()
 
+const memberController = require("../member/controller/member.controller")
+// import memberController from "../member/controller/member.controller"
 /**
  * user apis
  */
 
 // get user by id
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource")
-})
+router.get("/", memberController.getMember)
 
 // create user ===== kakao, google, naver ... +
-router.post("/", function (req, res, next) {
-  res.send("respond with a resource")
-})
+router.post("/", memberController.createMember)
 
 // update user
-router.put("/", function (req, res, next) {
-  res.send("respond with a resource")
-})
+router.put("/", memberController.updateMember)
 
 // delete user
-router.delete("/", function (req, res, next) {
-  res.send("respond with a resource")
-})
+router.delete("/", memberController.deleteMember)
 
 module.exports = router

@@ -9,9 +9,9 @@ AWS.config.update({
 })
 
 // Create operation
-const createItem = async (item) => {
+const createItem = async (tableName, item) => {
   const params = {
-    TableName: "member",
+    TableName: tableName,
     Item: item,
   }
 
@@ -19,9 +19,9 @@ const createItem = async (item) => {
 }
 
 // Read operation
-const getItem = async (itemId) => {
+const getItem = async (tableName, itemId) => {
   const params = {
-    TableName: "member",
+    TableName: tableName,
     Key: {
       id: itemId,
     },
@@ -31,9 +31,9 @@ const getItem = async (itemId) => {
 }
 
 // Update operation
-const updateItem = async (itemId, updateData) => {
+const updateItem = async (tableName, itemId, updateData) => {
   const params = {
-    TableName: "member",
+    TableName: tableName,
     Key: {
       id: itemId,
     },
@@ -48,9 +48,9 @@ const updateItem = async (itemId, updateData) => {
 }
 
 // Delete operation
-const deleteItem = async (itemId) => {
+const deleteItem = async (tableName, itemId) => {
   const params = {
-    TableName: "member",
+    TableName: tableName,
     Key: {
       id: itemId,
     },
