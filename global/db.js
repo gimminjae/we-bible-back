@@ -58,3 +58,5 @@ const deleteItem = async (tableName, itemId) => {
 
   return dynamoDB.delete(params).promise()
 }
+
+export { createItem, updateItem, getItem, deleteItem }

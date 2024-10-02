@@ -1,11 +1,14 @@
+const memberService = require("../service/member.service")
+
 module.exports = {
   getMember: (req, res, next) => {
     console.log(req)
     res.send("get member")
   },
   createMember: (req, res, next) => {
-    console.log(req)
-    res.send("create member")
+    const { body } = req
+    const result = memberService.createMember(body)
+    res.send(result)
   },
   updateMember: (req, res, next) => {
     console.log(req)
