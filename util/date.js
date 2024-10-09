@@ -13,4 +13,4 @@ const dateUtil = {
     return dayjs(value).format("YYYY-MM-DD HH:mm:ss")
   },
 }
-module.export = dateUtil
+module.exports = dateUtil

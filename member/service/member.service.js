@@ -1,5 +1,5 @@
 // import { v4 as uuidv4 } from "uuid"
-const dateUtil = require("../../util/date")
+const dateUtil = require("../../util/date.js")
 const uuid = require("uuid")
 
 const memberService = {
