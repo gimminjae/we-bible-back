@@ -1,6 +1,11 @@
 const AWS = require("aws-sdk")
-const dynamoDB = new AWS.DynamoDB.DocumentClient()
 
+console.log({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+  //   endpoint: process.env.AWS_END_POINT,
+})
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -8,55 +13,58 @@ AWS.config.update({
   //   endpoint: process.env.AWS_END_POINT,
 })
 
-// Create operation
-const createItem = async (tableName, item) => {
-  const params = {
-    TableName: tableName,
-    Item: item,
-  }
+const dynamoDB = new AWS.DynamoDB.DocumentClient()
 
-  return dynamoDB.put(params).promise()
+const db = {
+  // Create operation
+  createItem: async (tableName, item) => {
+    const params = {
+      TableName: tableName,
+      Item: item,
+    }
+
+    return dynamoDB.put(params).promise()
+  },
+
+  // Read operation
+  getItem: async (tableName, itemId) => {
+    const params = {
+      TableName: tableName,
+      Key: {
+        id: itemId,
+      },
+    }
+
+    return dynamoDB.get(params).promise()
+  },
+
+  // Update operation
+  updateItem: async (tableName, itemId, updateData) => {
+    const params = {
+      TableName: tableName,
+      Key: {
+        id: itemId,
+      },
+      UpdateExpression: "set ...",
+      ExpressionAttributeValues: {
+        ":value": updateData.value,
+      },
+      ReturnValues: "UPDATED_NEW",
+    }
+
+    return dynamoDB.update(params).promise()
+  },
+
+  // Delete operation
+  deleteItem: async (tableName, itemId) => {
+    const params = {
+      TableName: tableName,
+      Key: {
+        id: itemId,
+      },
+    }
+
+    return dynamoDB.delete(params).promise()
+  },
 }
-
-// Read operation
-const getItem = async (tableName, itemId) => {
-  const params = {
-    TableName: tableName,
-    Key: {
-      id: itemId,
-    },
-  }
-
-  return dynamoDB.get(params).promise()
-}
-
-// Update operation
-const updateItem = async (tableName, itemId, updateData) => {
-  const params = {
-    TableName: tableName,
-    Key: {
-      id: itemId,
-    },
-    UpdateExpression: "set ...",
-    ExpressionAttributeValues: {
-      ":value": updateData.value,
-    },
-    ReturnValues: "UPDATED_NEW",
-  }
-
-  return dynamoDB.update(params).promise()
-}
-
-// Delete operation
-const deleteItem = async (tableName, itemId) => {
-  const params = {
-    TableName: tableName,
-    Key: {
-      id: itemId,
-    },
-  }
-
-  return dynamoDB.delete(params).promise()
-}
-
-export { createItem, updateItem, getItem, deleteItem }
+module.exports = db

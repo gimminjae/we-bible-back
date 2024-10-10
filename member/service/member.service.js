@@ -1,6 +1,7 @@
 // import { v4 as uuidv4 } from "uuid"
 const dateUtil = require("../../util/date.js")
 const uuid = require("uuid")
+const memberRepository = require("../repository/member.repository")
 
 const memberService = {
   createMember: (member) => {
@@ -13,6 +14,7 @@ const memberService = {
       loginType: "",
     }
     console.log("member: ", saveMember)
+    memberRepository.save(saveMember)
     return "success"
   },
   getMember: (member) => {
